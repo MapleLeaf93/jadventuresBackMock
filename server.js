@@ -62,6 +62,49 @@ app.delete('/guild/:id', (req, res) => {
   });
 });
 
+// CRUD per Quest
+app.post('/quest', (req, res) => {
+    const data = req.body;
+    const sql = "INSERT INTO Quest SET ?";
+    db.query(sql, data, (error, results) => {
+      if (error) throw error;
+      res.json({ message: "Missione creata con successo", data: results });
+    });
+  });
+  
+  app.get('/quest', (req, res) => {
+    const sql = "SELECT * FROM Quest";
+    db.query(sql, (error, results) => {
+      if (error) throw error;
+      res.json(results);
+    });
+  });
+  
+  app.get('/quest/:id', (req, res) => {
+    const sql = `SELECT * FROM Quest WHERE id = ${db.escape(req.params.id)}`;
+    db.query(sql, (error, result) => {
+      if (error) throw error;
+      res.json(result);
+    });
+  });
+  
+  app.put('/quest/:id', (req, res) => {
+    const data = req.body;
+    const sql = `UPDATE Quest SET ? WHERE id = ${db.escape(req.params.id)}`;
+    db.query(sql, data, (error, result) => {
+      if (error) throw error;
+      res.json({ message: "Missione aggiornata con successo", data: result });
+    });
+  });
+  
+  app.delete('/quest/:id', (req, res) => {
+    const sql = `DELETE FROM Quest WHERE id = ${db.escape(req.params.id)}`;
+    db.query(sql, (error, result) => {
+      if (error) throw error;
+      res.json({ message: "Missione eliminata con successo" });
+    });
+  });  
+
 // Avvia il server
 app.listen(port, () => {
   console.log(`Server in ascolto sulla porta ${port}`);
