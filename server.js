@@ -20,7 +20,7 @@ db.connect(error => {
 });
 
 // CRUD per Guild
-app.post('/guild', (req, res) => {
+app.post('/guilds', (req, res) => {
   const data = req.body;
   const sql = "INSERT INTO Guild SET ?";
   db.query(sql, data, (error, results) => {
@@ -29,7 +29,7 @@ app.post('/guild', (req, res) => {
   });
 });
 
-app.get('/guild', (req, res) => {
+app.get('/guilds', (req, res) => {
   const sql = "SELECT * FROM Guild";
   db.query(sql, (error, results) => {
     if (error) throw error;
@@ -37,7 +37,7 @@ app.get('/guild', (req, res) => {
   });
 });
 
-app.get('/guild/:id', (req, res) => {
+app.get('/guilds/:id', (req, res) => {
   const sql = `SELECT * FROM Guild WHERE id = ${db.escape(req.params.id)}`;
   db.query(sql, (error, result) => {
     if (error) throw error;
@@ -45,7 +45,7 @@ app.get('/guild/:id', (req, res) => {
   });
 });
 
-app.put('/guild/:id', (req, res) => {
+app.put('/guilds/:id', (req, res) => {
   const data = req.body;
   const sql = `UPDATE Guild SET ? WHERE id = ${db.escape(req.params.id)}`;
   db.query(sql, data, (error, result) => {
@@ -54,7 +54,7 @@ app.put('/guild/:id', (req, res) => {
   });
 });
 
-app.delete('/guild/:id', (req, res) => {
+app.delete('/guilds/:id', (req, res) => {
   const sql = `DELETE FROM Guild WHERE id = ${db.escape(req.params.id)}`;
   db.query(sql, (error, result) => {
     if (error) throw error;
@@ -63,7 +63,7 @@ app.delete('/guild/:id', (req, res) => {
 });
 
 // CRUD per Quest
-app.post('/quest', (req, res) => {
+app.post('/quests', (req, res) => {
     const data = req.body;
     const sql = "INSERT INTO Quest SET ?";
     db.query(sql, data, (error, results) => {
@@ -72,7 +72,7 @@ app.post('/quest', (req, res) => {
     });
   });
   
-  app.get('/quest', (req, res) => {
+  app.get('/quests', (req, res) => {
     const sql = "SELECT * FROM Quest";
     db.query(sql, (error, results) => {
       if (error) throw error;
@@ -80,7 +80,7 @@ app.post('/quest', (req, res) => {
     });
   });
   
-  app.get('/quest/:id', (req, res) => {
+  app.get('/quests/:id', (req, res) => {
     const sql = `SELECT * FROM Quest WHERE id = ${db.escape(req.params.id)}`;
     db.query(sql, (error, result) => {
       if (error) throw error;
@@ -88,7 +88,7 @@ app.post('/quest', (req, res) => {
     });
   });
   
-  app.put('/quest/:id', (req, res) => {
+  app.put('/quests/:id', (req, res) => {
     const data = req.body;
     const sql = `UPDATE Quest SET ? WHERE id = ${db.escape(req.params.id)}`;
     db.query(sql, data, (error, result) => {
@@ -97,7 +97,7 @@ app.post('/quest', (req, res) => {
     });
   });
   
-  app.delete('/quest/:id', (req, res) => {
+  app.delete('/quests/:id', (req, res) => {
     const sql = `DELETE FROM Quest WHERE id = ${db.escape(req.params.id)}`;
     db.query(sql, (error, result) => {
       if (error) throw error;
