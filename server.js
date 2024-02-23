@@ -62,6 +62,19 @@ app.delete('/guilds/:id', (req, res) => {
   });
 });
 
+// Endpoint guild con quest
+app.get('/guilds/:id/quests', (req, res) => {
+  const guildId = req.params.id;
+  const sql = "SELECT * FROM Quest WHERE patron = ?";
+  db.query(sql, guildId, (error, results) => {
+    if (error) {
+      console.error("Errore nell'ottenere le quest della gilda:", error);
+      return res.status(500).send('Errore nel server');
+    }
+    res.json(results);
+  });
+});
+
 // Endpoint per il login delle Guild
 app.post('/guilds/login', (req, res) => {
   const { name, authentication_seal } = req.body;
