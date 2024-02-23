@@ -62,6 +62,28 @@ app.delete('/guilds/:id', (req, res) => {
   });
 });
 
+// Endpoint per il login delle Guild
+app.post('/guilds/login', (req, res) => {
+  const { name, authentication_seal } = req.body;
+  const sql = "SELECT * FROM Guild WHERE name = ? AND authentication_seal = ?";
+  
+  db.query(sql, [name, authentication_seal], (error, results) => {
+    if (error) {
+      console.error('Errore durante la query:', error);
+      return res.status(500).json({ message: "Errore interno del server" });
+    }
+    
+    if (results.length > 0) {
+      // Guild trovata, login riuscito
+      return res.status(200).json({ message: "Login riuscito", guild: results[0] });
+    } else {
+      // Nessuna guild corrispondente trovata
+      return res.status(404).json({ message: "Credenziali non valide" });
+    }
+  });
+});
+
+
 // CRUD per Quest
 app.post('/quests', (req, res) => {
     const data = req.body;
